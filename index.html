@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Beacon</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel">
+        <p class="eyebrow">SRE Control Room</p>
+        <h1>Beacon</h1>
+        <p class="desc">Model SLO burn rates from traffic/error spikes and tune on-call paging sensitivity.</p>
+
+        <div class="card">
+          <h2>Scenario</h2>
+          <label>Baseline RPS
+            <input id="rps" type="range" min="200" max="6000" step="100" value="1800" />
+            <span id="rpsVal">1800</span>
+          </label>
+          <label>Error Rate (%)
+            <input id="err" type="range" min="0.05" max="8" step="0.05" value="1.2" />
+            <span id="errVal">1.20</span>
+          </label>
+          <label>SLO Target (%)
+            <input id="slo" type="range" min="95" max="99.95" step="0.05" value="99.5" />
+            <span id="sloVal">99.50</span>
+          </label>
+          <div class="row">
+            <button id="simulate">Simulate 24h</button>
+            <button id="incident">Inject Incident</button>
+          </div>
+        </div>
+
+        <div class="card metrics">
+          <h2>Alert State</h2>
+          <p>5m Burn Rate: <strong id="burn5">0.00x</strong></p>
+          <p>1h Burn Rate: <strong id="burn60">0.00x</strong></p>
+          <p>Error Budget Used: <strong id="budget">0%</strong></p>
+          <p>Pages Triggered: <strong id="pages">0</strong></p>
+        </div>
+      </section>
+
+      <section class="viz">
+        <article class="card">
+          <h2>Error Rate Timeline</h2>
+          <canvas id="timeline" width="1080" height="340"></canvas>
+        </article>
+        <article class="card">
+          <h2>Burn Rate Windows</h2>
+          <canvas id="burnChart" width="1080" height="230"></canvas>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
